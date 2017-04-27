@@ -1,11 +1,13 @@
 <ul class="nav navbar-nav navbar-right">
-  <li><%= link_to "Upload", "#", class: "smoothScroll",
+  <li><%= link_to "Upload", new_image_path, class: "smoothScroll nav-btn",
     "data-wow-delay": "0.4s", method: :get %></li>
   <% if user_signed_in? %>
-    <li><%= link_to "Logout", destroy_user_session_path, class: "smoothScroll",
+    <li><%= link_to "Your Images", images_path, class: "smoothScroll nav-btn",
+                    "data-wow-delay": "0.4s", method: :get %></li>
+    <li><%= link_to "Logout", destroy_user_session_path, class: "smoothScroll nav-btn",
       "data-wow-delay": "0.5s", method: :delete %></li>
   <% else %>
-    <li><%= link_to "Login", new_user_session_path, class: "smoothScroll",
+    <li><%= link_to "Login", new_user_session_path, class: "smoothScroll nav-btn",
       "data-wow-delay": "0.5s", method: :get %></li>
   <% end %>
 </ul>
