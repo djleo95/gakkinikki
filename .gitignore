@@ -27,3 +27,4 @@ config/environments/*.local.yml
 /.idea/
 /.idea/workspace.xml
 .byebug_history
+.idea/
