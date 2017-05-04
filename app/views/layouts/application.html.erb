@@ -24,6 +24,9 @@
 </div>
 <body>
 <section class="view-port">
+  <% if notice %>
+    <div class="notice"><%= notice %></div>
+  <% end %>
   <%= yield %>
 </section>
 <%= render "layouts/footer" %>

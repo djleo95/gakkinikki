@@ -1,32 +1,14 @@
-<div class="col-sm-6 col-sm-offset-3">
+<div class="col-sm-8 col-sm-offset-2">
   <div class="panel panel-primary">
-    <div class="panel-body">
-      <p id="notice"><%= notice %></p>
-
-      <p class="hidden">
-        <strong>User:</strong>
-        <%= @image.user_id %>
+    <div class="panel-body img-show" style="background: url(<%= @image.file.url %>);
+      background-size: contain; background-position: center; background-repeat: no-repeat">
+      <p class="img-title" title="<%= @image.title %>">
+        <strong><%=h truncate(@image.title, :length => 40) %></strong>
       </p>
-
-      <p>
-        <strong>Title:</strong>
-        <%= @image.title %>
-      </p>
-
-      <p>
-      <div class="row">
-        <div class="col-md-6">
-          <strong>File:</strong>
-          <%= image_tag @image.file, class: "img-big" %>
-        </div>
+      <div class="img-show-btn">
+            <%= link_to 'Edit', edit_image_path(@image), class: "btn btn-primary" %>
+            <%= link_to 'Back', images_path, class: "btn btn-primary" %>
       </div>
-      <div class="row">
-        <div class="col-sm-8">
-          <%= link_to 'Edit', edit_image_path(@image), class: "btn btn-primary" %>
-          <%= link_to 'Back', images_path, class: "btn btn-primary" %>
-        </div>
-      </div>
-      </p>
     </div>
   </div>
 </div>

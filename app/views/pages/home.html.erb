@@ -1,5 +1,36 @@
-<div class="parallax-section home-top">
+<div class="parallax-section">
   <% if user_signed_in? %>
-  <!--<div class="btn btn-primary btn-upload-center"><%= link_to "Upload", new_image_path, class: "text-white" %></div>-->
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <div class="panel panel-primary">
+              <div class="panel-body">
+                <p id="notice"><%= notice %></p>
+                <h1 class="text-center">New Feed</h1>
+                <% @image.each do |image| %>
+                  <hr>
+                  <div>
+                    <a href="<%= image_path(image) %>" class="newfeed-email"><%= image.user.email %></a> just posted an image:
+                  </div>
+                  <div class="img-index-item" title="<%= image.title %>"
+                       style="background: url(<%= image.file.url %>);
+                         background-size: contain; background-position: center;
+                         background-repeat: no-repeat; background-color: black">
+                    <div class="img-title2"><%=h truncate(image.title, :length => 35) %></div>
+                    <div class=img-show-btn2>
+                      <%= link_to 'Show', image %>
+                      <%= link_to 'Edit', edit_image_path(image) %>
+                      <%= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' } %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  <% else %>
+    <p class="home-title">Welcome to Gakkinikki</p>
+    <a href="<%= new_user_registration_path %>" class="btn signupnow btn-upload-center">Sign up now</a>
   <% end %>
 </div>

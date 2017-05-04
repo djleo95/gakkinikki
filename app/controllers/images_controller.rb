@@ -5,7 +5,12 @@ class ImagesController < ApplicationController
   # GET /images
   # GET /images.json
   def index
-    @images = Image.all
+    @images = Image.where(:user_id => current_user.id)
+    @image = Image.all
+    respond_to do |format|
+      format.html
+      format.json {render json: @image}
+    end
   end
 
   # GET /images/1
