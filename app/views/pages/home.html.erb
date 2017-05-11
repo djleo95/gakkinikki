@@ -9,16 +9,37 @@
                 <% @image.each do |image| %>
                   <hr>
                   <div>
-                    <a href="<%= image_path(image) %>" class="newfeed-email"><%= image.user.email %></a> just posted an image:
+                    <% if current_user.id == image.user_id %>
+                      You just posted an image
+                      <%= time_ago_in_words(image.created_at) %>
+                       ago
+                    <% else %>
+                      <a href="<%= user_path(image.user_id) %>" class="newfeed-email"><%= image.user.email %></a> just posted an image
+                      <%= time_ago_in_words(image.created_at) %>
+                      ago
+                    <% end %>
                   </div>
-                  <div class="img-index-item" title="<%= image.title %>"
+                  <div class="img-index-item img-index-item2" title="<%= image.title %>"
                        style="background: url(<%= image.file.url %>);
-                         background-size: contain; background-position: center;
+                         background-size: cover; background-position: center;
                          background-repeat: no-repeat; background-color: black">
-                    <div class="img-title2"><%=h truncate(image.title, :length => 35) %></div>
-                    <div class=img-show-btn2>
-                      <%= link_to 'Show', image %>
-        
+                    <div class="modal" style="background: url(<%= image.file.url %>);
+                      background-size: contain; background-position: center;
+                      background-repeat: no-repeat; background-color: black"></div>
+                    <div class="img-overlay">
+                      <div class="img-title2">
+                        <%=h truncate(image.title, :length => 35) %></div>
+                    </div>
+                  </div>
+                  <div class="img-show-btn3 row">
+                    <div class="animated wow fadeInLeft" data-wow-delay="0s">
+                      <%= link_to 'Show', image, class: "col-sm-4 text-center btn-blue img-btn btn"%>
+                    </div>
+                    <div class="animated wow fadeInLeft" data-wow-delay=".1s">
+                      <%= link_to 'Comment', root_path, class: "col-sm-4 text-center btn-green img-btn btn" %>
+                    </div>
+                    <div class="animated wow fadeInLeft" data-wow-delay=".2s">
+                      <%= link_to 'Like', root_path, class: "col-sm-4 text-center btn-green-yellow img-btn btn" %>
                     </div>
                   </div>
                 <% end %>

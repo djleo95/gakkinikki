@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def show
-    @image = Image.all
+    @image = Image.order(created_at: :desc)
     if valid_page?
       render template: "pages/#{params[:page]}"
     else

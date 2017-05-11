@@ -7,9 +7,9 @@ class SCOPE::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # POST /resource
+  # # POST /resource
   # def create
-  #   super
+  #   super(configure_sign_up_params)
   # end
 
   # GET /resource/edit
@@ -40,12 +40,12 @@ class SCOPE::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
+  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
   # end
-
-  # If you have extra params to permit, append them to the sanitizer.
+  #
+  # # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
+  #   devise_parameter_sanitizer.permit(:account_update, keys: [:name])
   # end
 
   # The path used after sign up.
@@ -56,5 +56,8 @@ class SCOPE::RegistrationsController < Devise::RegistrationsController
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
+  # end
+  # def after_update_path_for(resource)
+  #   user_path(resource)
   # end
 end

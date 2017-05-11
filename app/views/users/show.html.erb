@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="col-sm-3">
+    <div class="panel panel-primary">
+      <div class="panel-body avatar-body">
+        <% if @user.avatar.to_s == "" %>
+          <div class="avatar">
+          </div>
+        <% else %>
+          <div class="avatar"
+               style="background: url('<%= @user.avatar.to_s %>') no-repeat center center;
+                 background-size: cover">
+          </div>
+        <% end %>
+        <div class="h2style text-center"><%= @user.name %></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-8">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <h2 class="text-center h2style2 ">All image</h2>
+        <% @user.image.each do |image| %>
+          <div class="col-sm-4 item-show-img" style="background: url(<%= image.file.url %>);
+            background-size: cover; background-position: center center;
+            background-repeat: no-repeat; background-color: black"
+            onclick="openimage(<%= image.id %>)">
+            <div class="img-index-item4" title="<%= image.title %>">
+              <div class="img-title3"><%=h truncate(image.title, :length => 35) %></div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

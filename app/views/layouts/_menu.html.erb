@@ -1,13 +1,33 @@
-<ul class="nav navbar-nav navbar-right">
-  <li><%= link_to "Upload", new_image_path, class: "smoothScroll nav-btn",
-    "data-wow-delay": "0.4s", method: :get %></li>
+<ul class="nav navbar-nav navbar-right row">
+  <li><%= link_to "Home", root_path,
+    class: "smoothScroll nav-btn col-sm-1 animated wow fadeInDown",
+    "data-wow-delay": "0.6s", method: :get %></li>
+  <li><%= link_to "Upload", new_image_path,
+    class: "smoothScroll nav-btn col-sm-1 animated fadeInDown wow",
+    "data-wow-delay": "0.65s", method: :get %></li>
   <% if user_signed_in? %>
-    <li><%= link_to "Your Images", images_path, class: "smoothScroll nav-btn",
-                    "data-wow-delay": "0.4s", method: :get %></li>
-    <li><%= link_to "Logout", destroy_user_session_path, class: "smoothScroll nav-btn",
-      "data-wow-delay": "0.5s", method: :delete %></li>
+    <li><%= link_to "Your Images", images_path,
+      class: "smoothScroll nav-btn animated wow fadeInDown",
+      "data-wow-delay": "0.7s", method: :get %></li>
+    <li class="dropdown"><%= link_to "Setting", "",
+      class: "smoothScroll nav-btn animated wow fadeInDown", "data-wow-delay": "0.75s" %>
+      <ul class="dropdown-menu">
+        <li><%= link_to "Profile", user_path(current_user),
+          class: "smoothScroll nav-btn text-center animated wow fadeInDown",
+          "data-wow-delay": "0.1s" %></li>
+        <li><%= link_to "Edit info", edit_user_registration_path,
+          class: "smoothScroll nav-btn text-center animated wow fadeInDown",
+          "data-wow-delay": "0.15s" %></li>
+        <li><%= link_to "Logout", destroy_user_session_path,
+          class: "smoothScroll nav-btn text-center animated wow fadeInDown",
+          "data-wow-delay": "0.2s",
+          method: :delete %></li>
+      </ul>
+    </li>
+
   <% else %>
-    <li><%= link_to "Login", new_user_session_path, class: "smoothScroll nav-btn",
-      "data-wow-delay": "0.5s", method: :get %></li>
+    <li><%= link_to "Login", new_user_session_path,
+      class: "smoothScroll nav-btn col-sm-1",
+      "data-wow-delay": "0.7s", method: :get %></li>
   <% end %>
 </ul>

@@ -10,14 +10,18 @@
             <hr>
             <div class="img-index-item" title="<%= image.title %>"
                  style="background: url(<%= image.file.url %>);
-                   background-size: contain; background-position: center;
+                   background-size: cover; background-position: center;
                    background-repeat: no-repeat; background-color: black">
               <div class="img-title2"><%=h truncate(image.title, :length => 35) %></div>
-              <div class=img-show-btn2>
-                <%= link_to 'Show', image %>
-                <%= link_to 'Edit', edit_image_path(image) %>
-                <%= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' } %>
-              </div>
+
+            </div>
+            <div class=img-show-btn3 row>
+              <%= link_to 'Show', image, class: "col-sm-4 text-center btn-blue img-btn
+                  animated wow fadeInLeft btn" %>
+              <%= link_to 'Edit', edit_image_path(image), class: "col-sm-4 text-center btn-green img-btn
+                  animated wow fadeInUp btn" %>
+              <%= link_to 'Destroy', image, class: "col-sm-4 text-center btn-green-yellow img-btn
+                  animated wow fadeInRight btn", method: :delete, data: { confirm: 'Are you sure?' } %>
             </div>
           <% end %>
         </div>

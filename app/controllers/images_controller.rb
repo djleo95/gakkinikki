@@ -5,6 +5,7 @@ class ImagesController < ApplicationController
   # GET /images
   # GET /images.json
   def index
+    # @image_comment
     @images = Image.where(:user_id => current_user.id)
     @image = Image.all
     respond_to do |format|
@@ -16,6 +17,7 @@ class ImagesController < ApplicationController
   # GET /images/1
   # GET /images/1.json
   def show
+    # render :json => { :path1 => "#{image_path}" }
   end
 
   # GET /images/new
