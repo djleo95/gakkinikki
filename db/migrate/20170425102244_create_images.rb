@@ -7,6 +7,7 @@ class CreateImages < ActiveRecord::Migration[5.0]
       t.string :title
       t.string :description
       t.string :file
+      t.integer :likes_count
 
       t.timestamps
     end

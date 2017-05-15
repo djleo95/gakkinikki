@@ -10,7 +10,19 @@ var wow = new WOW(
     scrollContainer: null
   }
 );
-wow.init();
+
+//
+// $(document).on('page:load', function() {
+//   wow.init();
+// });
+//
+// $(document).on('page:change', function() {
+//   wow.init();
+// });
+
+$(document).ready(function() {
+  wow.init();
+});
 
 $(document).on('mouseenter',".img-index-item2", function(){
   $(this).next().css("display","block")
@@ -126,6 +138,30 @@ function unlike(variable) {
     dataType: "json",
   }).success(function(){
       $('#like-section').load(document.URL + ' #like-section');
+  });
+};
+
+function follow(variable) {
+  $.ajax({
+    type:'POST',
+    url: '/relationships',
+    dataType: "json",
+    data: {
+      followed_id: variable
+    }
+  }).success(function(){
+    $('#follow-field').load(document.URL + ' #follow-field');
+  });
+};
+
+function unfollow(variable) {
+  var l = '/relationships/' + variable;
+  $.ajax({
+    type:'DELETE',
+    url: l,
+    dataType: "json",
+  }).success(function(){
+    $('#follow-field').load(document.URL + ' #follow-field');
   });
 };
 

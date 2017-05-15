@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="col-sm-3">
+  <div class="col-sm-3 animated wow fadeInDown" data-wow-delay="1.5s">
     <div class="panel panel-primary">
       <div class="panel-body avatar-body">
         <% if @image.user.avatar.to_s == "" %>
@@ -14,19 +14,26 @@
         <div class="h2style text-center"><%= @image.user.name %></div>
       </div>
     </div>
-    <% if current_user != @image.user %>
-      <% if @image.user.followers.include?(current_user) %>
-        <div class="follow img-btn btn" style="width: 100%">
-          Unfollow
-        </div>
-      <% else %>
-        <div class="follow img-btn btn" style="width: 100%">
-          Follow
-        </div>
+    <div id="follow-field">
+      <% if current_user != @image.user %>
+        <% if @image.user.followers.include?(current_user) %>
+          <div class="follow img-btn btn animated wow bounceInDown"
+               data-wow-delay="1s" data-wow-duration="1.5s"
+               style="width: 100%"
+               onclick="unfollow(<%= @image.user.id %>)">
+            Unfollow
+          </div>
+        <% else %>
+          <div class="follow img-btn btn animated wow bounceInDown"
+               data-wow-delay="1s" data-wow-duration="1.5s" style="width: 100%"
+               onclick="follow(<%= @image.user.id %>)">
+            Follow
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
-  <div class="col-md-9 col-sm-9">
+  <div class="col-md-9 col-sm-9 animated wow fadeInDown" data-wow-delay="0.5s">
     <div class="panel panel-primary img-show2">
       <div class="img-show" style="background: url(<%= @image.file.url %>);
         background-size: contain; background-position: center; background-repeat: no-repeat">
@@ -41,7 +48,7 @@
         <% end %>
       </div>
     </div>
-    <div class="panel panel-primany">
+    <div class="panel panel-primany animated wow fadeInLeft" data-wow-delay="1s">
       <div id="like-section" class="row">
         <div class="col-md-2">
           <% if !current_user.likes.where(image_id: @image.id).present? %>
@@ -51,7 +58,8 @@
             </div>
           <% else %>
             <div class="btn img-btn btn-like" id="btn-unlike-img-show"
-                 onclick="unlike(<%= current_user.likes.where(image_id: @image.id).ids %>)">
+                 onclick="unlike(<%= current_user.likes.where(
+                 image_id: @image.id).ids %>)">
               Unlike
             </div>
           <% end %>

@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="col-sm-3">
+  <div class="col-sm-3 animated wow fadeInDown" data-wow-delay="0.4s">
     <div class="panel panel-primary">
       <div class="panel-body avatar-body">
         <% if @user.avatar.to_s == "" %>
@@ -14,8 +14,25 @@
         <div class="h2style text-center"><%= @user.name %></div>
       </div>
     </div>
+    <div id="follow-field">
+      <% if current_user != @user %>
+        <% if @user.followers.include?(current_user) %>
+          <div class="follow img-btn btn animated wow fadeInLeft" data-wow-delay="0.7s"
+               style="width: 100%"
+               onclick="unfollow(<%= @user.id %>)">
+            Unfollow
+          </div>
+        <% else %>
+          <div class="follow img-btn btn animated wow fadeInLeft" data-wow-delay="0.7s"
+               style="width: 100%"
+               onclick="follow(<%= @user.id %>)">
+            Follow
+          </div>
+        <% end %>
+      <% end %>
+    </div>
   </div>
-  <div class="col-sm-8">
+  <div class="col-sm-8 animated wow fadeInDown" data-wow-delay="0.6s">
     <div class="panel panel-primary">
       <div class="panel-body">
         <h2 class="text-center h2style2 ">All image</h2>

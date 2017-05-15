@@ -7,7 +7,7 @@ class RelationshipsController < ApplicationController
   end
 
   def destroy
-    @user = Relationship.find(params[:id]).followed
+    @user = User.where(id: params[:id])
     current_user.unfollow(@user)
   end
 end

@@ -1,53 +1,90 @@
 <div class="parallax-section">
   <% if user_signed_in? %>
+      <div class="main-left">
+        <div class="panel transparent">
+          <div class="panel-body">
+            <div class="home-btn oval-btn text-center">
+              All images
+            </div>
+            <div class="sub-btn oval-btn2 btn home-btn">
+              Newest
+            </div>
+            <div class="sub-btn oval-btn2 btn home-btn">
+              Most viewed
+            </div>
+            <div class=" text-center oval-btn home-btn">
+              Followed user only
+            </div>
+            <div class="sub-btn oval-btn2 btn home-btn">
+              Newest
+            </div>
+            <div class="sub-btn oval-btn2 btn home-btn">
+              Most viewed
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="container">
         <div class="row">
-          <div class="col-sm-6 col-sm-offset-3">
+          <div class="col-sm-6 col-sm-offset-3 animated wow fadeIn"
+          data-wow-delay="1.5s" data-wow-duration="1.5s">
             <div class="panel panel-primary">
               <div class="panel-body">
                 <h1 class="text-center">New Feed</h1>
-                <% @image.each do |image| %>
-                  <hr>
-                  <div>
-                    <% if current_user.id == image.user_id %>
-                      You just posted an image
-                      <%= time_ago_in_words(image.created_at) %>
-                       ago
-                    <% else %>
-                      <a href="<%= user_path(image.user_id) %>" class="newfeed-email"><%= image.user.email %></a> just posted an image
-                      <%= time_ago_in_words(image.created_at) %>
-                      ago
-                    <% end %>
-                  </div>
-                  <div class="img-index-item img-index-item2" title="<%= image.title %>"
-                       style="background: url(<%= image.file.url %>);
-                         background-size: cover; background-position: center;
-                         background-repeat: no-repeat; background-color: black">
-                    <div class="modal" style="background: url(<%= image.file.url %>);
-                      background-size: contain; background-position: center;
-                      background-repeat: no-repeat; background-color: black"></div>
-                    <div class="img-overlay">
-                      <div class="img-title2">
-                        <%=h truncate(image.title, :length => 35) %></div>
+                  <% @image.each_with_index do |image, index| %>
+                    <div class="animated wow fadeInLeft"
+                      data-wow-delay=".<%= index/2 %>s">
+                      <hr>
+                      <div>
+                        <% if current_user.id == image.user_id %>
+                          You just posted an image
+                          <%= time_ago_in_words(image.created_at) %>
+                           ago
+                        <% else %>
+                          <a href="<%= user_path(image.user_id) %>" class="newfeed-email"><%= image.user.email %></a> just posted an image
+                          <%= time_ago_in_words(image.created_at) %>
+                          ago
+                        <% end %>
+                      </div>
+                      <div class="img-index-item img-index-item2" title="<%= image.title %>"
+                           style="background: url(<%= image.file.url %>);
+                             background-size: cover; background-position: center;
+                             background-repeat: no-repeat; background-color: black">
+                        <div class="modal" style="background: url(<%= image.file.url %>);
+                          background-size: contain; background-position: center;
+                          background-repeat: no-repeat; background-color: black"></div>
+                        <div class="img-overlay">
+                          <div class="img-title2">
+                            <%=h truncate(image.title, :length => 35) %></div>
+                        </div>
+                      </div>
+                      <div class="img-show-btn3 row">
+                      <div class="animated wow fadeInLeft" data-wow-delay=".4s">
+                        <%= link_to 'Show', image, class: "col-sm-4 text-center btn-blue img-btn btn"%>
+                      </div>
+                      <div class="animated wow fadeInLeft" data-wow-delay=".2s">
+                        <%= link_to 'Comment', root_path, class: "col-sm-4 text-center btn-green img-btn btn" %>
+                      </div>
+                      <div class="animated wow fadeInLeft" data-wow-delay=".1s">
+                        <%= link_to 'Like', root_path, class: "col-sm-4 text-center btn-green-yellow img-btn btn" %>
+                      </div>
                     </div>
-                  </div>
-                  <div class="img-show-btn3 row">
-                    <div class="animated wow fadeInLeft" data-wow-delay="0s">
-                      <%= link_to 'Show', image, class: "col-sm-4 text-center btn-blue img-btn btn"%>
                     </div>
-                    <div class="animated wow fadeInLeft" data-wow-delay=".1s">
-                      <%= link_to 'Comment', root_path, class: "col-sm-4 text-center btn-green img-btn btn" %>
-                    </div>
-                    <div class="animated wow fadeInLeft" data-wow-delay=".2s">
-                      <%= link_to 'Like', root_path, class: "col-sm-4 text-center btn-green-yellow img-btn btn" %>
-                    </div>
-                  </div>
-                <% end %>
+                  <% end %>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="main-right">
+        <div class="panel">
+          <div class="panel-body" style="height: 65vh">
+            <p>
+              Chat
+            </p>
+          </div>
+        </div>
+       </div>
   <% else %>
     <p class="home-title">Welcome to Gakkinikki</p>
     <a href="<%= new_user_registration_path %>" class="btn signupnow btn-upload-center">Sign up now</a>
