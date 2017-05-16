@@ -1,12 +1,30 @@
-<div class="col-sm-4 col-sm-offset-4">
-  <div class="panel panel-primary">
-    <div class="panel-body">
-        <h1>Editing Image</h1>
+<div class="container">
+  <div class="col-sm-4" id="old_preview">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        Old Image
+        <img src="<%= @image.file %>" alt="" width="100%">
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4" id="image_form">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+          <h1>Editing Image</h1>
+          <%= render 'form', image: @image %>
+          <div class="text-right">
+            <%= link_to 'Back', images_path, class: "italic" %>
+          </div>
+      </div>
+    </div>
+  </div>
 
-        <%= render 'form', image: @image %>
-
-        <%= link_to 'Show', @image %> |
-        <%= link_to 'Back', images_path %>
+  <div class="col-sm-4 hidden" id="preview">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        Preview
+        <img src="" alt="" width="100%" id="img_prev">
+      </div>
     </div>
   </div>
 </div>

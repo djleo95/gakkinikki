@@ -23,10 +23,12 @@ class ImagesController < ApplicationController
   # GET /images/new
   def new
     @image = Image.new
+    @instrument = Instrument.all
   end
 
   # GET /images/1/edit
   def edit
+    @instrument = Instrument.all
   end
 
   # POST /images
@@ -78,6 +80,6 @@ class ImagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.require(:image).permit(:user_id, :title, :file)
+      params.require(:image).permit(:user_id, :title, :file, :description, :price, :instrument_id)
     end
 end

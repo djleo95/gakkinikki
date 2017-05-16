@@ -1,13 +1,22 @@
-<div class="col-sm-4 col-sm-offset-4">
-  <div class="panel panel-primary">
-    <div class="panel-body">
-      <h1 class="text-center">New Image</h1>
-
-      <%= render 'form', image: @image %>
-    <div class="text-right margin-top-5">
-      <%= link_to 'Back', images_path, class: "italic" %>
+<div class="container">
+  <div class="col-sm-6 col-sm-offset-3" id="image_form">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <h1 class="text-center">New Image</h1>
+        <%= render 'form', image: @image %>
+        <div class="text-right margin-top-5">
+          <%= link_to 'Back', images_path, class: "italic" %>
+        </div>
+      </div>
     </div>
+  </div>
 
+  <div class="col-sm-7 hidden" id="preview">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        Preview
+        <img src="" alt="" id="img_prev">
+      </div>
     </div>
   </div>
 </div>

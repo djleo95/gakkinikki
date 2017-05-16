@@ -13,18 +13,36 @@
   <hr>
   <div class="field hidden">
     <%= f.label :user_id, class: "form-label" %>
-    <%= f.hidden_field :user_id, value: current_user.id, class: "form-control" %>
+    <%= f.hidden_field :user_id, value: current_user.id, class: "form-control"%>
   </div>
 
   <div class="field">
     <%= f.label :title, class: "form-label" %>
-    <%= f.text_field :title, class: "form-control" %>
+    <%= f.text_field :title, value: image.title, class: "form-control", required: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description, class: "form-label" %>
+    <%= f.text_field :description, value: image.description, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :price, class: "form-label" %>
+    <%= f.text_field :price, value: image.price, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :instrument, class: "form-label" %>
+    <br>
+    <%= f.select :instrument_id, @instrument.map { |i| [ i.name, i.id ] },
+      include_blank: "Select instrument", selected: image.instrument_id, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :file, class: "form-label" %>
-    <%= f.file_field :file, class: "form-control" %>
+    <%= f.file_field :file, class: "form-control", onchange: "readURL(this)" %>
   </div>
+
   <hr>
   <div class="actions">
     <%= f.submit "Save", class: "btn btn-primary btn-big btn-block" %>

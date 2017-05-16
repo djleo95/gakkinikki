@@ -3,7 +3,7 @@ class CreateImages < ActiveRecord::Migration[5.0]
     create_table :images do |t|
       t.integer :user_id
       t.integer :instrument_id
-      t.integer :rate
+      t.integer :price
       t.string :title
       t.string :description
       t.string :file

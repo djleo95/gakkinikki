@@ -11,20 +11,20 @@
                  background-size: cover">
           </div>
         <% end %>
-        <div class="h2style text-center"><%= @image.user.name %></div>
+        <div class="h2style text-center user-name"><%= link_to @image.user.name, @image.user %></div>
       </div>
     </div>
     <div id="follow-field">
       <% if current_user != @image.user %>
         <% if @image.user.followers.include?(current_user) %>
-          <div class="follow img-btn btn animated wow bounceInDown"
+          <div class="follow img-btn btn animated wow bounceInUp"
                data-wow-delay="1s" data-wow-duration="1.5s"
                style="width: 100%"
                onclick="unfollow(<%= @image.user.id %>)">
             Unfollow
           </div>
         <% else %>
-          <div class="follow img-btn btn animated wow bounceInDown"
+          <div class="follow img-btn btn animated wow bounceInUp"
                data-wow-delay="1s" data-wow-duration="1.5s" style="width: 100%"
                onclick="follow(<%= @image.user.id %>)">
             Follow
@@ -93,14 +93,15 @@
         <% @image.image_comment.each_with_index do |image_comment, index| %>
           <div class="comment row animated wow fadeInLeft" data-wow-delay="0.<%= index %>s">
             <% if image_comment.user.avatar.to_s == "" %>
-              <div class="avatar2">
-              </div>
+              <img src="<%= asset_path 'default-avatar.jpg' %>"
+                alt="" style="border-radius: 50%"
+                 width="10vw" height="40vh" class="col-sm-1">
             <% else %>
-              <div class="avatar2 col-sm-1" style="background: url('<%= image_comment.user.avatar.to_s %>') no-repeat center center;
-                background-size: cover">
-              </div>
+              <img src="<%= image_comment.user.avatar.to_s %>"
+                 alt="" style="border-radius: 50%"
+                 width="10vw" height="40vh" class="col-sm-1">
             <% end %>
-            <div class="col-sm-9">
+            <div class="col-sm-10">
               <span><strong style="color: darkred"><%= image_comment.user.name %></strong></span>
               <span style="word-wrap: break-word">
                 <%= image_comment.comment %>

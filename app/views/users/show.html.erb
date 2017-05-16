@@ -41,8 +41,10 @@
             background-size: cover; background-position: center center;
             background-repeat: no-repeat; background-color: black"
             onclick="openimage(<%= image.id %>)">
-            <div class="img-index-item4" title="<%= image.title %>">
-              <div class="img-title3"><%=h truncate(image.title, :length => 35) %></div>
+            <div class="img-overlay">
+              <div class="img-index-item4" title="<%= image.title %>">
+                <div class="img-title3"><%=h truncate(image.title, :length => 10) %></div>
+              </div>
             </div>
           </div>
         <% end %>

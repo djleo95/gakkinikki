@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20170507053531) do
   create_table "images", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "instrument_id"
-    t.integer  "rate"
+    t.integer  "price"
     t.string   "title"
     t.string   "description"
     t.string   "file"

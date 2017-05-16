@@ -11,21 +11,8 @@ var wow = new WOW(
   }
 );
 
-//
-// $(document).on('page:load', function() {
-//   wow.init();
-// });
-//
-// $(document).on('page:change', function() {
-//   wow.init();
-// });
-
 $(document).ready(function() {
   wow.init();
-});
-
-$(document).on('mouseenter',".img-index-item2", function(){
-  $(this).next().css("display","block")
 });
 
 $(document).on('mouseenter',".img-index-item", function(){
@@ -36,17 +23,18 @@ $(document).on('mouseenter',".img-index-item4", function(){
   $(this).next().css("display","block")
 });
 
-$(document).on('mouseleave',".img-index-item2", function(){
-});
-
 $(document).on('click',".img-index-item2", function(){
   $(this).children('.modal').addClass('show-modal');
   $(this).removeClass('img-index-item2')
+  $(".main-right").addClass('hidden')
+  $("#navbar").addClass('hidden')
 });
 
 $(document).on('click', '.show-modal', function() {
   $('.show-modal').removeClass('show-modal')
   $(this).parent().addClass("img-index-item2")
+  $(".main-right").removeClass('hidden')
+  $("#navbar").removeClass('hidden')
 });
 
 // $(document).on('click','#btn_like',function(){
@@ -165,4 +153,19 @@ function unfollow(variable) {
   });
 };
 
-
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $('#img_prev')
+        .attr('src', e.target.result)
+        .width('100%')
+      $('#image_form')
+        .removeClass('col-sm-offset-3 col-sm-6')
+        .addClass('col-sm-5')
+      $('#preview')
+        .removeClass('hidden')
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
