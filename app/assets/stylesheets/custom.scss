@@ -51,7 +51,7 @@ $gradient2: linear-gradient(15deg, rgb(173, 243, 255), rgb(235, 238, 255) 75%);
   background: deepskyblue;
   padding-top: 12vh;
   min-height: 100vh;
-  background: linear-gradient(20deg, #0aa7a9, #5dd19c 75%, #fffae8);
+  background: linear-gradient(20deg, #0aa7a9, #5dd19c 75%);
   animation: fadeInDown 1s;
 }
 
@@ -548,4 +548,12 @@ a {
   background: transparent;
   border-radius: 3px;
   //box-shadow: 2px 4px 11px rgba(34, 34, 34, 0.68)
+}
+
+.search-btn {
+  background: #f8605e !important;
+}
+
+.search-btn:hover {
+  background: #f89170 !important;
 }

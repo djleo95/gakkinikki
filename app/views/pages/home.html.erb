@@ -21,6 +21,24 @@
             <div class="sub-btn oval-btn2 btn home-btn" onclick="reloadhome(4)" id="opt4">
               Most liked
             </div>
+            <div class=" text-center oval-btn home-btn">
+              <div class="search-title" onclick="showSearch()">Search</div>
+              <div class="row search-input hidden">
+                <img src="<%= asset_path 'ic_search.png' %>" alt="" class="col-sm-1"
+                  style="padding: .4vh 0; width: 1.5vw">
+                </i>
+                <input type="text" class="search-input-box col-sm-8"
+                  style="margin: .2vh .5vw; height: 3vh; width: 11.5vw">
+                <img src="<%= asset_path 'ic_close.png' %>" alt="" class="col-sm-1"
+                  style="padding: .4vh 0; width: 1.5vw" onclick="closeSearch()">
+              </div>
+            </div>
+            <div class="sub-btn oval-btn2 btn home-btn search-btn hidden" onclick="reloadhome(5)" id="opt5">
+              User search
+            </div>
+            <div class="sub-btn oval-btn2 btn home-btn search-btn hidden" onclick="reloadhome(6)" id="opt6">
+              Image search
+            </div>
           </div>
         </div>
         <div class="testing hidden animated wow fadeInLeft" data-wow-duration=".5s">

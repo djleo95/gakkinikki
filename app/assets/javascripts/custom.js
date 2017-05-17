@@ -152,11 +152,13 @@ function readURL(input) {
 }
 
 function reloadhome(opt) {
+  var kw = $('.search-input-box').val();
+  console.log(kw);
   $('.newfeed')
-    .fadeOut(1500, function(){
+    .fadeOut(500, function(){
       $(this).fadeIn(1000)
     })
-    .load(document.URL + '/?case='+ opt + ' .newfeed2');
+    .load(document.URL + '/?case='+ opt + '&search='+ kw + ' .newfeed2');
   $('.btn-hover').removeClass('btn-hover');
   $('#opt' + opt).addClass('btn-hover');
   $("html, body").animate({ scrollTop: 0 }, 1500);
@@ -262,3 +264,14 @@ function unfollowHome(variable) {
     $('.main-right').load(document.URL + ' .chat-field');
   });
 };
+
+function showSearch() {
+  $('.search-title').addClass('hidden');
+  $('.search-input, #opt5, #opt6').removeClass('hidden');
+}
+
+function closeSearch() {
+  $('.search-input-box').val('');
+  $('.search-title').removeClass('hidden');
+  $('.search-input, #opt5, #opt6').addClass('hidden');
+}

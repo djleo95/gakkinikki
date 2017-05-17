@@ -14,7 +14,19 @@ class PagesController < ApplicationController
 
       when "4"
         @image = current_user.feed.order likes_count: :desc
-
+      when "5"
+        if params[:search].present?
+          @users = User.where("name like ?", "%#{params[:search]}%")
+          @image = Image.joins(:user).where(user: @users.ids)
+        else
+          @image = Image.order created_at: :desc
+        end
+      when "6"
+        if params[:search].present?
+          @image = Image.where("title like ? or description like ?","%#{params[:search]}%","%#{params[:search]}%")
+        else
+          @image = Image.order created_at: :desc
+        end
       else
         @image = Image.order created_at: :desc
     end
