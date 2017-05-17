@@ -152,9 +152,14 @@ function readURL(input) {
 }
 
 function reloadhome(opt) {
-  $('#new-feed').load(document.URL + '/?case='+ opt + ' #new-feed');
+  $('.newfeed')
+    .fadeOut(1500, function(){
+      $(this).fadeIn(1000)
+    })
+    .load(document.URL + '/?case='+ opt + ' .newfeed2');
   $('.btn-hover').removeClass('btn-hover');
   $('#opt' + opt).addClass('btn-hover');
+  $("html, body").animate({ scrollTop: 0 }, 1500);
 }
 
 function cmtHome(img_id) {
@@ -227,8 +232,9 @@ function commentHome(img_id) {
 }
 
 function feedHeadAva(user_id) {
-  $('.testing').load(document.URL + '?user_id=' + user_id + ' .user-feed')
-    .removeClass('hidden');
+  $('.testing').load(document.URL + '?user_id=' + user_id + ' .user-feed', function() {
+    $('.testing').removeClass('hidden');
+  });
 }
 
 function followHome(variable) {

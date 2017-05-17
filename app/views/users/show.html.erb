@@ -29,6 +29,11 @@
             Follow
           </div>
         <% end %>
+      <% else %>
+        <a href="<%= edit_user_registration_path %>" class="follow img-btn btn animated wow fadeInLeft" data-wow-delay="0.7s"
+             style="width: 100%">
+          Edit
+        </a>
       <% end %>
     </div>
     <div class="panel panel-primary" style="margin-top: 2vh">
