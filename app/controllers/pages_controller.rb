@@ -1,5 +1,10 @@
 class PagesController < ApplicationController
   def show
+    if params[:user_id].nil?
+      @user = current_user
+    else
+      @user = User.find_by id: params[:user_id]
+    end
     case params[:case]
       when "2"
         @image = Image.order likes_count: :desc

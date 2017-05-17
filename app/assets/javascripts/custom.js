@@ -225,3 +225,34 @@ function commentHome(img_id) {
       cmtHomeHide(img_id);
   })
 }
+
+function feedHeadAva(user_id) {
+  $('.testing').load(document.URL + '?user_id=' + user_id + ' .user-feed')
+    .removeClass('hidden');
+}
+
+function followHome(variable) {
+  $.ajax({
+    type:'POST',
+    url: '/relationships',
+    dataType: "json",
+    data: {
+      followed_id: variable
+    }
+  }).success(function(){
+    $('.follow-field').load(document.URL + '?user_id=' + variable + ' .follow-field');
+    $('.main-right').load(document.URL + ' .chat-field');
+  });
+};
+
+function unfollowHome(variable) {
+  var l = '/relationships/' + variable;
+  $.ajax({
+    type:'DELETE',
+    url: l,
+    dataType: "json",
+  }).success(function(){
+    $('.follow-field').load(document.URL + '?user_id=' + variable + ' .follow-field');
+    $('.main-right').load(document.URL + ' .chat-field');
+  });
+};

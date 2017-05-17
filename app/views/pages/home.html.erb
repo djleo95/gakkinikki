@@ -23,6 +23,57 @@
             </div>
           </div>
         </div>
+        <div class="testing hidden animated wow fadeInLeft" data-wow-duration=".5s">
+          <div class="panel user-feed">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-sm-5">
+                  <% if @user.avatar.present? %>
+                    <img src="<%= @user.avatar %>" width="110px" height="110px"
+                         alt="" style="border-radius: 50%;
+                      box-shadow: 2px 3px 11px rgba(34, 34, 34, 0.48);">
+                  <% else %>
+                    <img src="<%= asset_path 'default-avatar.jpg' %>"
+                         width="110px" height="110px"
+                         alt="" style="border-radius: 50%;
+                      box-shadow: 2px 3px 11px rgba(34, 34, 34, 0.48);">
+                  <% end %>
+                </div>
+                <div class="col-sm-6 col-sm-offset-1">
+                  <div class="user-name" style="font-size: 1.5em; margin-top: 1.5vh">
+                    <%= link_to @user.name, @user %>
+                  </div>
+                  <div>
+                    Follower: <%= @user.followers.count %>
+                  </div>
+                  <div>
+                    Following: <%= @user.following.count %>
+                  </div>
+                  <div>
+                    Images: <%= @user.image.count %>
+                  </div>
+                </div>
+              </div>
+              <div class="follow-field" style="margin-top: 1vh">
+                <% if current_user != @user %>
+                  <% if @user.followers.include?(current_user) %>
+                    <div class="follow img-btn btn"
+                         style="width: 100%"
+                         onclick="unfollowHome(<%= @user.id %>)">
+                      Unfollow
+                    </div>
+                  <% else %>
+                    <div class="follow img-btn btn"
+                         style="width: 100%"
+                         onclick="followHome(<%= @user.id %>)">
+                      Follow
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="container">
         <div class="row">
@@ -34,17 +85,28 @@
                   <% @image.each_with_index do |image, index| %>
                     <div class="animated wow fadeInLeft"
                       data-wow-delay=".<%= index/2 %>s">
-                      <hr>
-                      <div>
-                        <% if current_user.id == image.user_id %>
-                          You just posted an image
-                          <%= time_ago_in_words(image.created_at) %>
-                           ago
-                        <% else %>
-                          <a href="<%= user_path(image.user_id) %>" class="newfeed-email"><%= image.user.email %></a> just posted an image
-                          <%= time_ago_in_words(image.created_at) %>
-                          ago
-                        <% end %>
+                      <hr style="margin-bottom: 5px">
+                      <div class="feed-head">
+                        <div class="row">
+                          <div class="col-sm-1" style="padding: .1vh 1vw">
+                            <% if image.user.avatar.present? %>
+                              <img src="<%= image.user.avatar %>" width="40vw" height="40vh"
+                                alt="" style="border-radius: 50%;
+                                box-shadow: 2px 3px 11px rgba(34, 34, 34, 0.48);"
+                                onclick="feedHeadAva(<%= image.user.id %>)">
+                            <% else %>
+                              <img src="<%= asset_path 'default-avatar.jpg' %>"
+                                width="40vw" height="40vh"
+                                alt="" style="border-radius: 50%;
+                                box-shadow: 2px 3px 11px rgba(34, 34, 34, 0.48);"
+                                onclick="feedHeadAva(<%= image.user.id %>)">
+                            <% end %>
+                          </div>
+                          <div class="col-sm-4" style="margin-left: .4vw">
+                            <div class="user-name"><%= link_to image.user.name, image.user %></div>
+                            <div style="color: gray"><%= time_ago_in_words(image.created_at) %></div>
+                          </div>
+                        </div>
                       </div>
                       <div class="img-index-item img-index-item2" title="<%= image.title %>"
                            style="background: url(<%= image.file.url %>);
@@ -110,12 +172,12 @@
         </div>
       </div>
       <div class="main-right">
-        <div class="panel">
-          <div class="panel-body" style="height: 65vh; overflow: scroll">
+        <div class="panel chat-field">
+          <div class="panel-body" style="height: 65vh; overflow: visible">
             <h3 class="text-center" style="margin-top: 1vh">
               Chat
             </h3>
-            <% current_user.followers.each do |f| %>
+            <% current_user.following.each do |f| %>
              <div class="chat-row row">
                <% if f.avatar.to_s == "" %>
                  <img src="<%= asset_path 'default-avatar.jpg' %>"
