@@ -37,25 +37,6 @@ $(document).on('click', '.show-modal', function() {
   $("#navbar").removeClass('hidden')
 });
 
-// $(document).on('click','#btn_like',function(){
-//   alert("liked");
-// });
-
-// $(document).on('click', '#change-ava', function(){
-//   $('#ava-change').css("visibility","visible");
-//   $(this).addClass('hide');
-// });
-//
-// $(document).on('click', '#ava-change', function(){
-//   $('#ava-ok').removeClass('hide');
-// });
-//
-// $(document).on('click', '#ava-ok', function(){
-//   console.log($('#ava-change').val());
-//   var l= "'"+ $('#ava-change').val() + "'";
-//   $('#ava-field').val(l);
-//   alert($('#ava-field').val());
-// });
 $(document).on('click', '#btn-cmt', function() {
   var cmt = $('#cmt-field').val();
   var img_id = $('#img-id-field').val();
@@ -168,4 +149,79 @@ function readURL(input) {
     };
     reader.readAsDataURL(input.files[0]);
   }
+}
+
+function reloadhome(opt) {
+  $('#new-feed').load(document.URL + '/?case='+ opt + ' #new-feed');
+  $('.btn-hover').removeClass('btn-hover');
+  $('#opt' + opt).addClass('btn-hover');
+}
+
+function cmtHome(img_id) {
+  $('#cmt'+img_id).toggleClass('hidden');
+}
+
+function cmtHomeHide(img_id) {
+  $('#cmt'+img_id).addClass('hidden');
+}
+
+function reloadAfterLike (img_id, like) {
+  var c = $('.btn-hover').attr('id');
+  var cc = 1;
+  switch(c) {
+    case "opt2":
+      cc = 2;
+      break;
+    case "opt3":
+      cc = 3;
+      break;
+    case "opt4":
+      cc = 4;
+      break;
+    default:
+      cc = 1;
+  }
+  var imgid = '#info'+img_id;
+  $(imgid).load(document.URL + '/?case=' + cc + ' '+ imgid);
+  if(like) {
+    var btnid = '#btn-like'+img_id;
+    $(btnid).load(document.URL + '/?case=' + cc + ' '+ btnid);
+  }
+}
+
+function likeHome(img_id) {
+  $.ajax({
+    type:'POST',
+    url: '/likes',
+    data: {
+      image_id: img_id
+    }
+  }).success(reloadAfterLike(img_id, true));
+}
+
+function unlikeHome(img_id, like_id) {
+  var l = '/likes/' + like_id;
+  $.ajax({
+    type:'DELETE',
+    url: l
+  })
+  .success(reloadAfterLike(img_id, true));
+}
+
+function commentHome(img_id) {
+  var cmt = $('#cmt-field'+img_id).val();
+  $.ajax({
+    type:'POST',
+    url: '/image_comments',
+    dataType: "json",
+    data: {
+      comment: cmt,
+      image_id: img_id
+    }
+  })
+  .success(function() {
+      reloadAfterLike(img_id, false);
+    $('#cmt-field'+img_id).val('');
+      cmtHomeHide(img_id);
+  })
 }

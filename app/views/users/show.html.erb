@@ -31,6 +31,14 @@
         <% end %>
       <% end %>
     </div>
+    <div class="panel panel-primary" style="margin-top: 2vh">
+      <div class="panel-body second-body">
+        <h3 class="h3style text-right">Follower:</h3>
+        <h5 class="h5style text-right"><%=  @user.followers.count %></h5>
+        <h3 class="h3style text-right">Following:</h3>
+        <h5 class="h5style text-right"><%=  @user.following.count %></h5>
+      </div>
+    </div>
   </div>
   <div class="col-sm-8 animated wow fadeInDown" data-wow-delay="0.6s">
     <div class="panel panel-primary">

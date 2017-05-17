@@ -6,20 +6,20 @@
             <div class="home-btn oval-btn text-center">
               All images
             </div>
-            <div class="sub-btn oval-btn2 btn home-btn">
+            <div class="sub-btn oval-btn2 btn home-btn btn-hover" onclick="reloadhome(1)" id="opt1">
               Newest
             </div>
-            <div class="sub-btn oval-btn2 btn home-btn">
-              Most viewed
+            <div class="sub-btn oval-btn2 btn home-btn" onclick="reloadhome(2)" id="opt2">
+              Most liked
             </div>
             <div class=" text-center oval-btn home-btn">
               Followed user only
             </div>
-            <div class="sub-btn oval-btn2 btn home-btn">
+            <div class="sub-btn oval-btn2 btn home-btn" onclick="reloadhome(3)" id="opt3">
               Newest
             </div>
-            <div class="sub-btn oval-btn2 btn home-btn">
-              Most viewed
+            <div class="sub-btn oval-btn2 btn home-btn" onclick="reloadhome(4)" id="opt4">
+              Most liked
             </div>
           </div>
         </div>
@@ -27,10 +27,10 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-6 col-sm-offset-3 animated wow fadeIn"
-          data-wow-delay="1.5s" data-wow-duration="1.5s">
+            data-wow-delay="1.5s" data-wow-duration="1.5s">
             <div class="panel panel-primary">
-              <div class="panel-body">
-                <h1 class="text-center">New Feed</h1>
+              <div class="panel-body" id="new-feed">
+                <h1 class="text-center">News Feed</h1>
                   <% @image.each_with_index do |image, index| %>
                     <div class="animated wow fadeInLeft"
                       data-wow-delay=".<%= index/2 %>s">
@@ -55,20 +55,53 @@
                           background-repeat: no-repeat; background-color: black; z-index: 1000"></div>
                         <div class="img-overlay">
                           <div class="img-title2">
-                            <%=h truncate(image.title, :length => 35) %></div>
+                            <%=h truncate(image.title, :length => 35) %>
+                          </div>
+                          <div class="img-info" id="info<%= image.id %>">
+                            <%= image.like.count %> likes
+                            <%= image.image_comment.count %> comment
+                          </div>
                         </div>
                       </div>
                       <div class="img-show-btn3 row">
-                      <div class="animated wow fadeInLeft" data-wow-delay=".4s">
-                        <%= link_to 'Show', image, class: "col-sm-4 text-center btn-blue img-btn btn"%>
+                        <div class="animated wow fadeInLeft" data-wow-delay=".4s">
+                          <%= link_to 'Show', image,
+                            class: "col-sm-4 text-center btn-blue img-btn btn" %>
+                        </div>
+                        <div class="animated wow fadeInLeft col-sm-4
+                         text-center btn-green img-btn btn" data-wow-delay=".2s"
+                         onclick="cmtHome(<%= image.id %>)">
+                          Comment
+                        </div>
+                        <div id="btn-like<%= image.id %>">
+                          <% if !current_user.likes.where(image_id: image.id).present? %>
+                            <div class="animated wow fadeInLeft col-sm-4
+                           text-center btn-green-yellow img-btn btn" data-wow-delay=".1s"
+                             onclick="likeHome(<%= image.id %>)">
+                              Like
+                            </div>
+                          <% else %>
+                            <div class="animated wow fadeInLeft col-sm-4
+                           text-center btn-green-yellow img-btn btn" data-wow-delay=".1s"
+                             onclick="unlikeHome(<%= image.id %>,<%= current_user.likes.where(image_id: image.id).ids %>)">
+                              Unlike
+                            </div>
+                          <% end %>
+                        </div>
                       </div>
-                      <div class="animated wow fadeInLeft" data-wow-delay=".2s">
-                        <%= link_to 'Comment', root_path, class: "col-sm-4 text-center btn-green img-btn btn" %>
+                      <div class="panel animated wow fadeInDown hidden" id="cmt<%= image.id %>">
+                        <%= form_for :image_comment, method: :post, remote: true do |f| %>
+                          <div class="row">
+                            <div class= "cmt-field col-sm-9" style="margin-left: 1vw">
+                              <%= f.text_field :comment, class: "form-control", id: "cmt-field#{image.id}" %>
+                            </div>
+                            <div class="btn col-sm-2 btn-primary btn-cmt img-btn"
+                              onclick="commentHome(<%= image.id %>)">
+                              Comment
+                            </div>
+                          </div>
+                        <% end %>
                       </div>
-                      <div class="animated wow fadeInLeft" data-wow-delay=".1s">
-                        <%= link_to 'Like', root_path, class: "col-sm-4 text-center btn-green-yellow img-btn btn" %>
-                      </div>
-                    </div>
                     </div>
                   <% end %>
               </div>
@@ -78,10 +111,24 @@
       </div>
       <div class="main-right">
         <div class="panel">
-          <div class="panel-body" style="height: 65vh">
-            <p>
+          <div class="panel-body" style="height: 65vh; overflow: scroll">
+            <h3 class="text-center" style="margin-top: 1vh">
               Chat
-            </p>
+            </h3>
+            <% current_user.followers.each do |f| %>
+             <div class="chat-row row">
+               <% if f.avatar.to_s == "" %>
+                 <img src="<%= asset_path 'default-avatar.jpg' %>"
+                      alt="" style="border-radius: 50%; padding: 0 !important"
+                      width="10vw" height="30vh" class="col-sm-2">
+               <% else %>
+                 <img src="<%= f.avatar.to_s %>"
+                      alt="" style="border-radius: 50%; padding: 0 !important"
+                      width="10vw" height="30vh" class="col-sm-2">
+               <% end %>
+               <div class="col-sm-10" style="margin-top: 1vh"><%= f.name %></div>
+             </div>
+            <% end %>
           </div>
         </div>
        </div>

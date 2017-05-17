@@ -1,16 +1,18 @@
 class PagesController < ApplicationController
   def show
     case params[:case]
-      when 1
-        "asd"
-      when 2
-        "It's 6"
-      when 3
-        "You passed a string"
-      when 4
-        "You passed a string"
+      when "2"
+        @image = Image.order likes_count: :desc
+
+      when "3"
+        @image = current_user.feed.order created_at: :desc
+
+      when "4"
+        @image = current_user.feed.order likes_count: :desc
+
+      else
+        @image = Image.order created_at: :desc
     end
-    @image = Image.order(created_at: :desc)
     if valid_page?
       render template: "pages/#{params[:page]}"
     else
