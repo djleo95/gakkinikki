@@ -547,7 +547,7 @@ a {
   width: 99.7%;
   background: transparent;
   border-radius: 3px;
-  //box-shadow: 2px 4px 11px rgba(34, 34, 34, 0.68)
+  z-index: 1;
 }
 
 .search-btn {
